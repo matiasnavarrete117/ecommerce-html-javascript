@@ -7,7 +7,7 @@ btnCart.addEventListener('click', () => {
 	containerCartProducts.classList.toggle('hidden-cart');
 });
 
-/* ========================= */
+
 const cartInfo = document.querySelector('.cart-product');
 const rowProduct = document.querySelector('.row-product');
 
@@ -118,10 +118,10 @@ const showHTML = () => {
 		rowProduct.append(containerProduct);
 
 		total =
-			total + parseInt(product.quantity * product.price.slice(1));
+			total + product.quantity * parseInt(product.price.slice(1).replace('.', ''));
 		totalOfProducts = totalOfProducts + product.quantity;
 	});
 
-	valorTotal.innerText = `$${total}`;
+	valorTotal.innerText = `$${total.toLocaleString('es-CL')}`;
 	countProducts.innerText = totalOfProducts;
 };
