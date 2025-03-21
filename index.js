@@ -25,35 +25,47 @@ const cartEmpty = document.querySelector('.cart-empty');
 const cartTotal = document.querySelector('.cart-total');
 
 productsList.addEventListener('click', e => {
-	if (e.target.classList.contains('btn-add-cart')) {
-		const product = e.target.parentElement;
+    if (e.target.classList.contains('btn-add-cart')) {
+        const product = e.target.parentElement;
 
-		const infoProduct = {
-			quantity: 1,
-			title: product.querySelector('h2').textContent,
-			price: product.querySelector('p').textContent,
-		};
+        const infoProduct = {
+            quantity: 1,
+            title: product.querySelector('h2').textContent,
+            price: product.querySelector('p').textContent,
+        };
 
-		const exits = allProducts.some(
-			product => product.title === infoProduct.title
-		);
+        // Mostrar SweetAlert en la parte superior
+        Swal.fire({
+            position: 'top',
+            title: '¡Producto agregado!',
+            text: `Agregaste "${infoProduct.title}" al carrito.`,
+            icon: 'success',
+            showConfirmButton: false, 
+            timer: 2000, // Cierra automáticamente después de 2 segundos
+            timerProgressBar: true // Barra de progreso
+        });
 
-		if (exits) {
-			const products = allProducts.map(product => {
-				if (product.title === infoProduct.title) {
-					product.quantity++;
-					return product;
-				} else {
-					return product;
-				}
-			});
-			allProducts = [...products];
-		} else {
-			allProducts = [...allProducts, infoProduct];
-		}
+        
+        const exits = allProducts.some(
+            product => product.title === infoProduct.title
+        );
 
-		showHTML();
-	}
+        if (exits) {
+            const products = allProducts.map(product => {
+                if (product.title === infoProduct.title) {
+                    product.quantity++;
+                    return product;
+                } else {
+                    return product;
+                }
+            });
+            allProducts = [...products];
+        } else {
+            allProducts = [...allProducts, infoProduct];
+        }
+
+        showHTML();
+    }
 });
 
 rowProduct.addEventListener('click', e => {
